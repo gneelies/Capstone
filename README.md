@@ -1,7 +1,7 @@
 # Capstone
 Google Data Analytics Capstone
 
-The [Google Data Analytics Professional Certificate](https://www.coursera.org/professional-certificates/google-data-analytics?utm_source=google&utm_medium=institutions&utm_campaign=gwgsite-gDigital-emprohpp-certs-launch) is an all-inclusive online program aimed at equipping individuals with the necessary skills to excel as data analysts. Created by Google, this program imparts essential abilities and tools crucial for a successful data analysis career, such as data cleaning, problem-solving, and data visualization.
+The [Google Data Analytics Professional Certificate](https://www.coursera.org/professional-certificates/google-data-analytics?utm_source=google&utm_medium=institutions&utm_campaign=gwgsite-gDigital-emprohpp-certs-launch) is an online program aimed at equipping individuals with the necessary skills to excel as data analysts. Created by Google, this program imparts essential abilities and tools crucial for a successful data analysis career, such as data cleaning, problem-solving, and data visualization.
 
 *Benefits of the Program:*
 
@@ -28,8 +28,6 @@ The program is broken up into 8 different courses:
 **7. Data Analysis with R Programming**
 
 **8. Google Data Analytics Capstone: Complete a Case Study**
-
-
 
 
 
@@ -93,34 +91,34 @@ This step will address the data source that will be used for the analysis and th
 
 #### Data Combination
 
-Tables representing 12 CSV files have been uploaded to the 2022_tripdata dataset. To help with data combination, the following SQL query is implemented in order to combine all 12 files into a single dataset. A new table named ***"all_tripdata"*** has been generated using the following code.:
+Tables representing 12 CSV files have been uploaded to the 2021_tripdata dataset. To help with data combination, the following SQL query is implemented in order to combine all 12 files into a single dataset. A new table named ***"all_tripdata"*** has been generated using the following code.:
 
 ```
-CREATE TABLE IF NOT EXISTS `2022_tripdata.all_tripdata` AS 
+CREATE TABLE IF NOT EXISTS `2021_tripdata.all_tripdata` AS 
 (
-  SELECT * FROM '202201_tripdata`
+  SELECT * FROM '202211_tripdata`
   UNION ALL
-  SELECT * FROM `202202_tripdata`
+  SELECT * FROM `202102_tripdata`
   UNION ALL
-  SELECT * FROM `202203_tripdata`
+  SELECT * FROM `202103_tripdata`
   UNION ALL
-  SELECT * FROM `202204_tripdata`
+  SELECT * FROM `202104_tripdata`
   UNION ALL
-  SELECT * FROM `202205_tripdata`
+  SELECT * FROM `202105_tripdata`
   UNION ALL
-  SELECT * FROM `202206_tripdata`
+  SELECT * FROM `202106_tripdata`
   UNION ALL
-  SELECT * FROM `202207_tripdata`
+  SELECT * FROM `202107_tripdata`
   UNION ALL
-  SELECT * FROM `202208_tripdata`
+  SELECT * FROM `202108_tripdata`
   UNION ALL
-  SELECT * FROM `202209_tripdata`
+  SELECT * FROM `202109_tripdata`
   UNION ALL
-  SELECT * FROM `202210_tripdata`
+  SELECT * FROM `202110_tripdata`
   UNION ALL
-  SELECT * FROM `202211_tripdata`
+  SELECT * FROM `202111_tripdata`
   UNION ALL
-  SELECT * FROM `202212_tripdata`
+  SELECT * FROM `202112_tripdata`
 );
 ```
 
@@ -128,12 +126,12 @@ Then, to check the total row numbers, we perform this SQL query. The new dataset
 
 ```
 SELECT COUNT(*) AS total_records
-FROM `2022_tripdata.all_tripdata`;
+FROM `2021_tripdata.all_tripdata`;
 ```
 We perform the following code to show the first 10 rows of the dataset in order to understand the dataset better
 
 ```
-SELECT * `FROM 2022_tripdata.all_tripdata` LIMIT 10;
+SELECT * `FROM 2021_tripdata.all_tripdata` LIMIT 10;
 ```
 #### Data Exploration
 
@@ -141,7 +139,7 @@ In order to do data exploration, the first thing to do is to check the data type
 
 ```
 SELECT column_name, data_type
-FROM `2022_tripdata`.INFORMATION_SCHEMA.COLUMNS
+FROM `2021_tripdata`.INFORMATION_SCHEMA.COLUMNS
 WHERE table_name = 'all_tripdata';
 
 ```
@@ -161,7 +159,7 @@ SELECT COUNT(*) - COUNT(ride_id) ride_id,
  COUNT(*) - COUNT(end_lat) end_lat,
  COUNT(*) - COUNT(end_lng) end_lng,
  COUNT(*) - COUNT(member_casual) member_casual
-FROM `2022_tripdata.all_tripdata`;
+FROM `2021_tripdata.all_tripdata`;
 ```
 
 After checking the null values, we also need to check if the dataset has any duplicate values. By performing this following code, it appears that we have no duplicate values:
