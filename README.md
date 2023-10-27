@@ -37,11 +37,21 @@ The program is broken up into 8 different courses:
 
 ## 1. Introduction
 
-Cyclistic is a bike-share program that offers inclusive options such as reclining bikes, hand tricycles, and cargo bikes, making it accessible to people with disabilities. While most riders choose traditional bikes, about 8% use the assistive options. The program is popular for leisure rides, but around 30% of users also rely on it for daily commuting. Cyclistic aims to shift its marketing focus towards converting casual riders into annual members as they have proven to be more profitable. By analyzing historical bike trip data, the marketing team aims to understand the differences between annual members and casual riders, determine why casual riders would consider a membership, and explore the impact of digital media on marketing strategies.
+In this case study I demonstrate the skills and insights I learned in the Google Data Analytics Professional Certificate Course.  I will use these skills to complete the tasks of a data analyst working for the fictitious bike-share company Cyclistic.  Following the data analysis process of Ask, Prepare, Process, Analyze, Share, and Act, I will complete the business task presented to me and help the company make data-driven decisions.
 
 ## 2. Scenario
 
-As a junior data analyst on the marketing team at Cyclistic, a bike-share company in Chicago, the director of marketing believes that the company's success hinges on maximizing annual memberships. Your team's objective is to gain an understanding of how casual riders and annual members utilize Cyclistic bikes differently. With these insights, you will develop a new marketing strategy to convert casual riders into annual members. However, your recommendations must be supported by compelling data insights and professional data visualizations in order to obtain approval from Cyclistic executives.
+The Cyclistic Director of Marketing, Lily Moreno, believes the company's future success depends on maximizing the number of annual memberships. Therefore, my team wants to understand how casual riders and annual members use Cyclistic bikes differently. From these insights, my team will design a new marketing strategy to convert casual riders into annual members. But first, Cyclistic executives must apporove our recommendations, so they must be backed up with compelling data insights and professional data visualizations.
+
+***About The Company***:
+
+In 2016, Cyclistic launched a successful bike-share offering. Since then, the program has grown to a fleet of 5,824 bicycles that are geotracked and locked into a network of 692 stations across Chicago. The bikes can be unlocked from one station and returned to any other station in the system anytime.
+
+Cyclistic's appeal is that they offer flexibility in their pricing plans with single-ride passes, full-day passes, and annual memberships. Customers who purchase single-ride or full-day passes are referred to as casual riders. Customers who purchase annual memberships are Cyclistic members.
+
+Cyclistic’s finance analysts have concluded that annual members are much more profitable than casual riders. Moreno believes there is a very good chance to convert casual riders into members.
+
+Moreno has set a clear goal: Design marketing strategies aimed at converting casual riders into annual members. In order to do that, however, Moreno and her team are interested in analyzing the Cyclistic historical bike trip data to identify trends.
 
 ## 3. Data Analysis Process
 
@@ -63,6 +73,10 @@ So here are the analysis questions that will help in the analysis:
 3. How can Cyclistic use digital media as a tool to convert casual riders to members?
 
 For this case, Lily Moreno who is the director of marketing has assigned me as a junior data analyst to the first question: *How do annual members and casual riders use Cyclistic bikes differently?*
+Guiding Question: "How do annual members and casual riders use Cyclistic bikes differently?"
+
+Business Task: To find trends tha show how annual and casual riders use Cyclistic differently.  Use these trends to give recommendations for the marketing team to run casual riders into members.
+Shareholders: Marketing team and Executive team.
 
 ### Step 2: Prepare
 
@@ -85,9 +99,13 @@ This step will address the data source that will be used for the analysis and th
 - end_lng
 - member_casual
 
+
+**Data Location**: Data is stored in .csv files
+Data is stored on secure hard drive with password protected status.
+
 ### Step 3: Process
 
-**Tool**: Google BigQuery is used to combine the total 12 files into one dataset.
+**Tool**: Excell Power querey Google BigQuery is used to combine the total 12 files into one dataset.
 
 #### Data Combination
 
