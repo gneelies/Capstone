@@ -155,70 +155,59 @@ I now had a single table that had all of the clean data needed for my analysis.
 
 ### Step 4: Analyze
 
-#### Data Analysis & Visualization
+#### Data Analysis
 
-The data has been meticulously stored and prepared for thorough analysis. Relevant information was extracted from multiple tables and then effectively visualized using **Tableau**. The primary objective of this analysis is *to understand the distinct usage patterns of Cyclistic bikes between annual members and casual riders.*
+To begin the analysis phase, I wanted to reemphasize the business task:  How do casual riders and members use bikes differently?
 
-To initiate this comparison, we carefully examine and compare the specific types of bikes that each group, comprising annual members and casual riders, frequently utilizes.
+Here is the main insight I discovered from my Query:
 
-![TotalBikeType](Data%20Visualization/Total%20Bike%20Types.png)
+Members used the bikes more than casual riders.
+Casual riders used the bikes at about the same time members used bikes!
+While casual rider’s trips lasted on average longer than, the time of use was nearly the same.
 
-The composition of Cyclistic users can be divided into two major categories: members, accounting for approximately 59.7% of the total, and casual riders, comprising the remaining 40.3%. The percentage distribution for each bike type reveals that the classic bike is the most popular among both member and casual rider groups, with the electric bike ranking second in popularity. Interestingly, docked bikes are predominantly used by casual riders and represent the least utilized bike type within the Cyclistic service.
+I did not analyze the data for seasons or individual months, but this would have been helpful.
 
-Moving on, we delve into the analysis of trip distributions based on different time parameters. Specifically, we explore the number of trips distributed across months, days of the week, and hours of the day.
+I now had some very important data to create visuals and begin providing business suggestions.
 
-![TotalTrip](Data%20Visualization/Total%20Trips.png)
 
-In terms of monthly trips, both casual riders and members exhibit similar patterns, with a higher number of trips occurring during the spring and summer months, and a decline during the winter season. Interestingly, the gap between casual riders and members is narrowest in the month of July during the summer.
 
-When comparing trips based on the days of the week, it is evident that casual riders tend to take more journeys over the weekends, while members show a decline in trip frequency during the weekends compared to the rest of the weekdays.
-
-Analyzing trips based on the hours of the day reveals distinct patterns for members and casual riders. Members display two peak periods for trips, occurring in the early morning from around 6 am to 8 am, and in the evening from around 4 pm to 8 pm. In contrast, the number of trips for casual riders steadily increases throughout the day, peaking in the evening and then gradually decreasing.
-
-From these observations, we can infer that members may predominantly use bikes for commuting to and from work on weekdays, while casual riders utilize bikes more frequently throughout the day, particularly on weekends for leisure purposes. Both groups exhibit higher activity levels during the summer and spring months.
-
-To understand the differences in behavior between casual and member riders, the ride duration of trips is compared in the subsequent analysis.
-
-![RideDurationAvg](Data%20Visualization/Ride%20Duration.png)
-
-It is important to note that casual riders tend to have longer cycling trips compared to members on average. The average journey length for members remains consistent throughout the year, week, and day. However, there are notable variations in the ride durations of casual riders. Specifically, during the spring and summer seasons, on weekends, and between 10 am and 2 pm during the day, they cover greater distances. Conversely, they have shorter trips between five and eight in the morning.
-
-Based on these findings, it can be inferred that casual riders travel longer distances, approximately twice as much as members, but less frequently. Their longer journeys are often observed on weekends and during the day outside of typical commuting hours, particularly in the spring and summer months, suggesting that they might be cycling for recreational purposes.
-
-To gain further insights into the differences between casual and member riders, an analysis of the starting and ending stations' locations can be conducted. By filtering and examining stations with the most trips, additional conclusions can be drawn.
-
-![TotalTripatStartLocation](Data%20Visualization/Total%20Trips%20at%20Start%20Location.png)
-
-Casual riders often initiate their trips from stations located near museums, parks, beaches, harbors, and aquariums, whereas members tend to start their journeys from stations in proximity to universities, residential areas, restaurants, hospitals, grocery stores, theaters, schools, banks, factories, train stations, parks, and plazas.
-
-![TotalTripatEndLocation](Data%20Visualization/Trips%20at%20Ending%20Station.png)
-
-A comparable pattern is evident in the ending station locations. Casual riders tend to conclude their journeys near parks, museums, and other recreational sites, while members end their trips in proximity to universities, residential, and commercial areas. This observation further supports the notion that casual riders utilize bikes primarily for leisure activities, whereas members heavily rely on them for their daily commutes.
-
-***Here are the summary:***
-
-*Casual Rider*
-
-Casual riders exhibit a preference for using bikes throughout the day, with increased usage over the weekends, especially during the summer and spring seasons, for leisure activities. They tend to travel approximately twice the distance of members but take fewer trips overall.
-
-Furthermore, casual riders commonly commence and conclude their journeys near various recreational sites, including parks, museums, coastal areas, and other leisure destinations.
-
-*Member Rider*
-
-Member riders prefer using bikes primarily for commuting purposes during weekdays, particularly in the summer and spring seasons, with higher usage during typical commute hours (8 am and 5 pm). They take more frequent but shorter rides compared to casual riders, with trip durations approximately half as long.
-
-Moreover, member riders tend to start and end their bike journeys near locations such as universities, residential areas, and commercial districts, indicating their reliance on bikes for daily commuting needs.
 
 ### Step 5: Vizualization
+
+For my visualization, I wanted to be very specific and narrow my suggestion to one significant point.
+
+ ![image](https://github.com/gneelies/Capstone/assets/148823383/62a3931b-54b5-4dc3-aadb-7343c308c42d)
+
+
+
+Here are my thoughts about the key difference found between Members and Casual Riders:
+
+Members and casual riders tend to use bikes at the same time throughout the day.
+Peak times are about the same for both kinds of riders – gradual increase through the morning, except a peak at around 8 AM and Noon, but peaks in the late afternoon.
+
+I also ran a query to see if there is any difference through out year:
+
+![image](https://github.com/gneelies/Capstone/assets/148823383/e7f73e3c-3a79-4509-b905-b8a0e1942722)
+
+ 
+
+
+It appears that both casual riders and members utilize bikes about the same time during the year and during the day.
+
+
+
 
 
 
 
 ### Step 6: Act
 
-Following the analysis of disparities between casual and member riders, there is an opportunity to devise marketing strategies to encourage casual riders to convert into members. The following recommendations are suggested:
+Based on my analysis, I came up with the following recommendations that I believe will help the marketing team create an effective campaign to convert casual riders into members:
 
-1. Targeted marketing campaigns could be launched during the spring and summer seasons at tourist and recreational hotspots popular among casual riders.
-2. Considering that casual riders are more active on weekends and during the summer and spring, offering seasonal or weekend-only memberships might be an effective approach.
-3. Since casual riders tend to have longer bike rides than members, providing discounts for extended ride durations could serve as an incentive for casual riders and possibly encourage members to also ride for longer periods.
+1. Ride More:  Offer a discount to casual riders to use bikes for travel to work or school.  Since casual riders already use bikes at about the same time during the day, an emphasis on a wider range of options would be helpful.
+
+2. Member Reachout: Give a discount to members who enlist casual riders to become members.  Give members who already enjoy the use of bikes a chance to create new ideas for casual bike riders.
+
+By implementing these concise strategies, the marketing campaign can effectively convert casual riders into valued members, enriching their biking experience during the summer season.
+
 
