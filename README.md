@@ -172,7 +172,7 @@ I now had some very important data to create visuals and begin providing busines
 
 
 
-### Step 5: Vizualization
+### Step 5: Share
 
 For my visualization, I wanted to be very specific and narrow my suggestion to one significant point.
 
