@@ -77,6 +77,15 @@ Guiding Question: "How do annual members and casual riders use Cyclistic bikes d
 
 Business Task: To find trends tha show how annual and casual riders use Cyclistic differently.  Use these trends to give recommendations for the marketing team to run casual riders into members.
 Shareholders: Marketing team and Executive team.
+Lily Moreno: Director of Marketing. Moreno is responsible for the development of campaigns and initiatives to promote the bike-share program. These may include email, social media, and other channels.
+
+Cyclistic marketing analytics team: A team of data analysts who are responsible for collecting, analyzing, and reporting data that helps guide Cyclistic marketing strategy.
+
+Cyclistic executive team: The notoriously detail-oriented executive team will decide whether to approve the recommended marketing program.
+
+Stakeholder Perspective:  Rather than creating a marketing campaign that targets all-new customers, Moreno believes there is a very good chance to convert casual riders into members. She notes that casual riders are already aware of the Cyclistic program and have chosen Cyclistic for their mobility needs.
+
+
 
 ### Step 2: Prepare
 
