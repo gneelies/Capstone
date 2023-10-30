@@ -112,230 +112,48 @@ This step will address the data source that will be used for the analysis and th
 **Data Location**: Data is stored in .csv files
 Data is stored on secure hard drive with password protected status.
 
+The first step in the prepare process was to download all of the data needed for analysis. We will be using the Cyclistic trip data for 2021 which needs to be download in 12 separate .csv files for each month of the year and stored in a dedicated folder. The data has been made available by Motivate International Inc. under license.
+
+Data Organization:  
+
+File naming convention: cyclistic_tripdata_YYYMM.csv
+
+Content: Each file contains 13 fields which contain data such as ride id, rideable type, dates, geographic data etc. Data records varied.
+
+Data security and limitations:
+
+Data-privacy issues prohibit you from using riders’ personally identifiable information. This means that we won’t be able to connect pass purchases to credit card numbers to determine if casual riders live in the Cyclistic service area or if they have purchased multiple single passes.
+
+Data Issues:
+
+Data is too big to fit an Excell spreadsheet (~1,600,000 rows per sheat)
+Column names are inconsistent
+Data have inconsistent labels.  Some sheets use “Customer” and “Subscriber” while others use “Member” and “Casual”.
+There are gaps in data – bike rides with no station starting name, or with no trip duration.
+
+
 ### Step 3: Process
 
-**Tool**: Excell Power querey Google BigQuery is used to combine the total 12 files into one dataset.
+**Tool**: Excell Power query is used to combine the total 12 files into one dataset.
 
-#### Data Combination
+Excel
 
-Tables representing 12 CSV files have been uploaded to the 2021_tripdata dataset. To help with data combination, the following SQL query is implemented in order to combine all 12 files into a single dataset. A new table named ***"all_tripdata"*** has been generated using the following code.:
+To begin the data cleaning process, I opened each .csv file in excel and did the following:
 
-```
-CREATE TABLE IF NOT EXISTS `2021_tripdata.all_tripdata` AS 
-(
-  SELECT * FROM '202211_tripdata`
-  UNION ALL
-  SELECT * FROM `202102_tripdata`
-  UNION ALL
-  SELECT * FROM `202103_tripdata`
-  UNION ALL
-  SELECT * FROM `202104_tripdata`
-  UNION ALL
-  SELECT * FROM `202105_tripdata`
-  UNION ALL
-  SELECT * FROM `202106_tripdata`
-  UNION ALL
-  SELECT * FROM `202107_tripdata`
-  UNION ALL
-  SELECT * FROM `202108_tripdata`
-  UNION ALL
-  SELECT * FROM `202109_tripdata`
-  UNION ALL
-  SELECT * FROM `202110_tripdata`
-  UNION ALL
-  SELECT * FROM `202111_tripdata`
-  UNION ALL
-  SELECT * FROM `202112_tripdata`
-);
-```
+Checked for and removed any duplicates.
+Used the trim() function to remove unneeded spaces.
+Created a new column labeled start_time to see when riders began their rides.
+Created a new column labeled ride_length by subtracting the started_at column from the ended_at column.
+Changed the time format to 37:30:55 to make it more readable
 
-Then, to check the total row numbers, we perform this SQL query. The new dataset ***"all_tripdata"*** holds a total of 5,667,717 data rows encompassing the entire year:
+Considered removing any rides under 1 minute or longer than 24 hours by sorting the speadsheet, however decided not to do this – my focus was to see when riders started using the bikes.
 
-```
-SELECT COUNT(*) AS total_records
-FROM `2021_tripdata.all_tripdata`;
-```
-We perform the following code to show the first 10 rows of the dataset in order to understand the dataset better
+After uploading each of the twelve files, I combined each file into one table labeled Capstone_Analysis_Casual_Annual.  In the same query, I removed each of the rows that contained null values.
 
-```
-SELECT * `FROM 2021_tripdata.all_tripdata` LIMIT 10;
-```
-#### Data Exploration
-
-In order to do data exploration, the first thing to do is to check the data type to observe the inconsistencies. After checking, we have seen that the entire dataset has the ride_id as the primary key:
-
-```
-SELECT column_name, data_type
-FROM `2021_tripdata`.INFORMATION_SCHEMA.COLUMNS
-WHERE table_name = 'all_tripdata';
-
-```
-To help ensure data cleanness, we have to check if the dataset has any null values in any column. However, it appears that there are no ***null*** values in the dataset:
-
-```
-SELECT COUNT(*) - COUNT(ride_id) ride_id,
- COUNT(*) - COUNT(rideable_type) rideable_type,
- COUNT(*) - COUNT(started_at) started_at,
- COUNT(*) - COUNT(ended_at) ended_at,
- COUNT(*) - COUNT(start_station_name) start_station_name,
- COUNT(*) - COUNT(start_station_id) start_station_id,
- COUNT(*) - COUNT(end_station_name) end_station_name,
- COUNT(*) - COUNT(end_station_id) end_station_id,
- COUNT(*) - COUNT(start_lat) start_lat,
- COUNT(*) - COUNT(start_lng) start_lng,
- COUNT(*) - COUNT(end_lat) end_lat,
- COUNT(*) - COUNT(end_lng) end_lng,
- COUNT(*) - COUNT(member_casual) member_casual
-FROM `2021_tripdata.all_tripdata`;
-```
-
-After checking the null values, we also need to check if the dataset has any duplicate values. By performing this following code, it appears that we have no duplicate values:
-
-```
-SELECT COUNT(ride_id) - COUNT(DISTINCT ride_id) AS duplicate_rows
-FROM `2022_tripdata.all_tripdata`;
-
-```
-
-Retrieve the records of the rideable_type column to see the different bike types: electric_bike, classical_bike, docked_bike
-
-```
-SELECT DISTINCT rideable_type, COUNT(rideable_type) AS trip_type
-FROM `2022_tripdata.combined_data`
-GROUP BY rideable_type;
-```
-Retrieve the records of the member_casual column to check the different member types: member, casual
-
-```
-SELECT DISTINCT member_casual, COUNT(*) AS count_member_type
-FROM your_dataset_name.your_table_name
-GROUP BY member_casual;
-```
-The trip starts and end times are indicated in the format YYYY-MM-DD hh:mm:ss UTC in the columns *"started_at"* and *"ended_at."* By introducing a new column called ***"ride_length"*** we can compute the total trip duration. It is necessary to exclude 5360 trips with a duration exceeding one day and 122283 trips with a duration less than a minute or end times earlier than start times.
-
-Columns such as ***"day_of_week"*** and ***"month"*** can offer valuable insights into analyzing trips at various times throughout the year.
-
-To enhance data integrity, 833064 rows with missing values in both "start_station_name" and "start_station_id" should be eliminated. Similarly, 892742 rows with missing values in both ***"end_station_name"*** and ***"end_station_id"*** and 5858 rows with missing values in both ***"end_lat"*** and ***"end_lng"*** should also be removed.
-
-```
-SELECT started_at, ended_at
-FROM `2022_tripdata.all_tripdata`
-LIMIT 20;
-
-SELECT COUNT(*) AS longer_than_1_day
-FROM `2022_tripdata.all_tripdata`
-WHERE (
-  EXTRACT(HOUR FROM (ended_at - started_at)) * 60 +
-  EXTRACT(MINUTE FROM (ended_at - started_at)) +
-  EXTRACT(SECOND FROM (ended_at - started_at)) / 60) >= 1440;   -- longer than 1 day - total rows = 5360
-
-SELECT COUNT(*) AS less_than_a_minute
-FROM `2022_tripdata.all_tripdata`
-WHERE (
-  EXTRACT(HOUR FROM (ended_at - started_at)) * 60 +
-  EXTRACT(MINUTE FROM (ended_at - started_at)) +
-  EXTRACT(SECOND FROM (ended_at - started_at)) / 60) <= 1;      -- less than 1 minute - total rows = 122283
-```
-
-In the dataset, there are 833,064 rows where both the ***"start_station_name"*** and ***"start_station_id"*** values are missing.
-
-```
-SELECT DISTINCT start_station_name
-FROM `2022_tripdata.all_tripdata`
-ORDER BY start_station_name;
-
-SELECT COUNT(ride_id) AS start_station_null   
-FROM `2022_tripdata.all_tripdata`
-WHERE start_station_name IS NULL OR start_station_id IS NULL;
-
-```
-
-There are also 892,742 rows in which both the ***"end_station_name"*** and ***"end_station_id"*** values are absent.
-
-```
-SELECT DISTINCT end_station_name
-FROM `2022_tripdata.all_tripdata`
-ORDER BY end_station_name;
-
-SELECT COUNT(ride_id) AS end_station_null
-FROM `2022_tripdata.all_tripdata`
-WHERE end_station_name IS NULL OR end_station_id IS NULL;
-
-```
-In the dataset, there are a total of 5,858 rows where both the ***"end_lat"*** and ***"end_lng"*** values are missing.
-```
-SELECT COUNT(ride_id) AS end_loc_null
-FROM `2022_tripdata.all_tripdata`
-WHERE end_lat IS NULL OR end_lng IS NULL;
-```
-#### Data Cleaning
-
-In step, a new table will be created for cleaned data which is easier for analysis. Therefore, the following steps are implemented:
-
- - First, any rows containing missing values are removed from the dataset.
- - 3 new columns, namely ***"ride_length"*** to indicate the trip duration, ***"day_of_week"*** to specify the day of the week, and ***"month"*** to represent the month, are added.
- - Trips with durations less than a minute and longer than a day are excluded, leading to the removal of a total of 1,375,912 rows during this process.
+I now had a single table that had all of the clean data needed for my analysis.
 
 
-Create a new table called ***"alldata_cleaned"*** with the following code:
-```
-CREATE TABLE IF NOT EXISTS `2022_tripdata.alldata_cleaned` AS (
-  SELECT 
-    a.ride_id, rideable_type, started_at, ended_at, 
-    ride_length,
-    CASE EXTRACT(DAYOFWEEK FROM started_at) 
-      WHEN 1 THEN 'Sun'
-      WHEN 2 THEN 'Mon'
-      WHEN 3 THEN 'Tue'
-      WHEN 4 THEN 'Wed'
-      WHEN 5 THEN 'Thu'
-      WHEN 6 THEN 'Fri'
-      WHEN 7 THEN 'Sat'    
-    END AS day_of_week,
-    CASE EXTRACT(MONTH FROM started_at)
-      WHEN 1 THEN 'Jan'
-      WHEN 2 THEN 'Feb'
-      WHEN 3 THEN 'Mar'
-      WHEN 4 THEN 'Apr'
-      WHEN 5 THEN 'May'
-      WHEN 6 THEN 'Jun'
-      WHEN 7 THEN 'Jul'
-      WHEN 8 THEN 'Aug'
-      WHEN 9 THEN 'Sep'
-      WHEN 10 THEN 'Oct'
-      WHEN 11 THEN 'Nov'
-      WHEN 12 THEN 'Dec'
-    END AS month,
-    start_station_name, end_station_name, 
-    start_lat, start_lng, end_lat, end_lng, member_casual
-  FROM `2022_tripdata.all_tripdata` a
-  JOIN (
-    SELECT ride_id, (
-      EXTRACT(HOUR FROM (ended_at - started_at)) * 60 +
-      EXTRACT(MINUTE FROM (ended_at - started_at)) +
-      EXTRACT(SECOND FROM (ended_at - started_at)) / 60) AS ride_length
-    FROM `2022_tripdata.all_tripdata`
-  ) b 
-  ON a.ride_id = b.ride_id
-  WHERE 
-    start_station_name IS NOT NULL AND
-    end_station_name IS NOT NULL AND
-    end_lat IS NOT NULL AND
-    end_lng IS NOT NULL AND
-    ride_length > 1 AND ride_length < 1440
-);
-```
-
-Set ***"ride_id"*** as the primary key for the new table and remove rows:
-
-```
-ALTER TABLE `2022_tripdata.alldata_cleaned`
-ADD PRIMARY KEY(ride_id) NOT ENFORCED;
-
-SELECT COUNT(ride_id) AS no_of_rows
-FROM `2022_tripdata.alldata_cleaned`;
-```
-### Step 4 & 5: Analyze and Share
+### Step 4: Analyze
 
 #### Data Analysis & Visualization
 
@@ -390,6 +208,11 @@ Furthermore, casual riders commonly commence and conclude their journeys near va
 Member riders prefer using bikes primarily for commuting purposes during weekdays, particularly in the summer and spring seasons, with higher usage during typical commute hours (8 am and 5 pm). They take more frequent but shorter rides compared to casual riders, with trip durations approximately half as long.
 
 Moreover, member riders tend to start and end their bike journeys near locations such as universities, residential areas, and commercial districts, indicating their reliance on bikes for daily commuting needs.
+
+### Step 5: Vizualization
+
+
+
 
 ### Step 6: Act
 
